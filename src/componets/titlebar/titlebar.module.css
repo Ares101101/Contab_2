@@ -5,9 +5,4 @@
     align-items: center; /* Alinea verticalmente los elementos al centro */
     justify-content: center; /* Alinea horizontalmente los elementos al centro */
 }
-#header{
-    -webkit-app-region: drag;   
-}
-:not(.header){
-    -webkit-app-region: no-drag;   
-}
+
