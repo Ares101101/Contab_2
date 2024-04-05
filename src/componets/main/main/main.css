@@ -1,0 +1,6 @@
+.main{
+    display: grid;
+    grid-template-rows: auto 20px ;
+    grid-template-columns: 48px auto;
+    height: 100%;
+}

@@ -36,8 +36,15 @@
         "height": 600,
         "minWidth": 690,
         "minHeight": 500,
-        "decorations": false
-
+        "decorations": false,
+        "visible": false
+      },
+      {
+        "width": 400,
+        "height": 200,
+        "decorations": false,
+        "url": "splashscreen.html",
+        "label": "splashscreen"
       }
     ],
     "security": {
