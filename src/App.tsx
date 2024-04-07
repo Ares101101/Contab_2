@@ -10,7 +10,7 @@ function App() {
     else return compConcSect(false)
   }
   return (
-    <div className="App text-[#222222]" >
+    <div className="App text-[#222222] overflow-hidden" >
       <TitleBar funct={onComp}/>
       <Main/>
     </div>

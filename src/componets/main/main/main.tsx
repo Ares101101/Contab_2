@@ -1,5 +1,5 @@
 import Account from '../account/account'
-import Facturacion from '../mains/facturacion/facturacion'
+import Facturacion from '../mains/facturacion/mainfacturacion/facturacion'
 import './main.css'
 function Main (){
     return(
