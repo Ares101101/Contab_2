@@ -9,6 +9,13 @@
   font-family:'SourceSansPro-Light' ;
   src: url('./assets/fonts/SourceSansPro-Light.otf');
 }
+@font-face {
+  font-family:'SourceSansPro-Bold' ;
+  src: url('./assets/fonts/SourceSansPro-Bold.otf');
+}
 .Pro-Light{
   font-family:'SourceSansPro-Light' ;
+}
+.Pro-Bold{
+  font-family:'SourceSansPro-Bold' ;
 }
