@@ -1,9 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './styles.css'
 import MenorIcon from '../productos/menor'
+import generarFecha from './fecha'
 function FacturaBoleta(){
     const [comprobante, setComprobante] =useState("FACTURA DE VENTA")
     const [on, setOn]= useState(false)
+    const [date, setDate] = useState({minDate:'', maxDate:''})
+    const [fecha, setFecha] = useState('')
+    
+    useEffect(() => {
+        const {minDate ,maxDate}= generarFecha()
+        setDate({minDate:minDate, maxDate:maxDate})
+    }, [])
+
     return(
         <main className="pl-4 overflow-hidden bg-[#F3F3F3] Pro-Light text-[#333333]">
             <article className=" bg-white  w-full h-full p-8 overflow-auto flex flex-col gap-2">
@@ -57,24 +66,57 @@ function FacturaBoleta(){
                     <div className=' h-full flex items-center'>Av. República de Panamá Nro. 4050</div> 
                     <div className=' h-full flex items-center'>Surquillo, Lima, Lima, Perú</div>    
                 </article>
-                <article className='w-full h-48 border-[#DDDDDD] border bg-[#F3F3F3]'>
-                    <div>
-                        a
+                <article className='w-full h-auto  border-[#DDDDDD] border bg-[#F3F3F3] flex flex-col'>
+                    <div className=' flex w-full h-full border-[#DDDDDD] border-b px-4 gap-4'>
+                        <div className='w-full flex justify-between'>
+                            <div className='h-full flex  items-center'>
+                                Fecha de emision : 
+                            </div>
+                            <label 
+                            htmlFor="fecha"
+                            className=' select-none h-full'
+                            >
+                            <input 
+                                type="date"  
+                                min={date.minDate} 
+                                max={date.maxDate}
+                                required
+                                className='select-none h-full'
+                                defaultValue={date.maxDate}
+                                onChange={(event)=>{setFecha(event.target.value)}}
+                                />
+                            </label>
+                        </div>
+                        <div className='w-full flex justify-between '>
+                            <div className='h-full flex  items-center'>
+                                Fecha de Vencimiento : 
+                            </div>
+                            <label 
+                            htmlFor="fecha"
+                            className=' select-none h-full'
+                            >
+                            <input 
+                                type="date"  
+                                min={date.maxDate} 
+                                required
+                                className='select-none h-full'
+                                defaultValue={date.maxDate}
+                                onChange={(event)=>{setFecha(event.target.value)}}
+                                />
+                            </label>
+                        </div>
                     </div>
-                    <div>
-                        a       
+                    <div className=' flex w-full h-full border-[#DDDDDD] border-b  px-4'>
+                        RUC:  AAAAAAAAAAAAAAAAAAAAAAAAA
                     </div>
-                    <div>
-                        a
+                    <div className=' flex w-full h-full border-[#DDDDDD] border-b px-4'>
+                        {`Señor(es) AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA`}
                     </div>
-                    <div>
-                        a
+                    <div className=' flex w-full h-full border-[#DDDDDD] border-b px-4'>
+                        Dirección: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                     </div>
-                    <div>
-                        a
-                    </div>
-                    <div>
-                        a
+                    <div className=' flex w-full h-full px-4'> 
+                        Tipo de moneda : SOL
                     </div>
                 </article>
             </article>
