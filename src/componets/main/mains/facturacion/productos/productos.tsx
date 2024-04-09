@@ -4,7 +4,13 @@ import productos from '../../../../../assets/products.json'
 import MenorIcon from './menor';
 import './productos.css'
 
-function Productos(){
+interface ProductosProps {
+    sumarItems: (item: { id: number; title: string; price: number }) => void;
+}
+
+function Productos({ sumarItems}: ProductosProps) {
+    
+
     return(
         <section className=' bg-[#F3F3F3] text-[#333333] Pro-Light m-0 p-0 productos '>
             <section className='Pro-Light text-xs px-4 pt-2'>
@@ -27,7 +33,11 @@ function Productos(){
            
             <article className='flex flex-wrap gap-1 p-4 justify-center items-center  overflow-y-auto  '>
                 {productos.map((producto) => (
-                    <div key={producto.id} className='w-full card' >
+                    <div 
+                        key={producto.id} 
+                        className='w-full card' 
+                        onClick={()=>sumarItems(producto)}
+                    >
                          <CardProducto 
                                 id={producto.id}
                                 title={producto.title}

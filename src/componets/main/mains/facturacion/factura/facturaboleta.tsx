@@ -2,12 +2,23 @@ import { useEffect, useState } from 'react'
 import './styles.css'
 import MenorIcon from '../productos/menor'
 import generarFecha from './fecha'
-function FacturaBoleta(){
+interface Producto {
+    id: number;
+    title: string;
+    cantidad: number;
+    price: number;
+  }
+  
+  interface FacturaBoletaProps {
+    state: Producto[];
+  }
+
+function FacturaBoleta({state}:FacturaBoletaProps){
     const [comprobante, setComprobante] =useState("FACTURA DE VENTA")
     const [on, setOn]= useState(false)
     const [date, setDate] = useState({minDate:'', maxDate:''})
     const [fecha, setFecha] = useState('')
-    
+
     useEffect(() => {
         const {minDate ,maxDate}= generarFecha()
         setDate({minDate:minDate, maxDate:maxDate})
@@ -16,7 +27,7 @@ function FacturaBoleta(){
     return(
         <main className=" overflow-hidden bg-[#F3F3F3] Pro-Light text-[#333333]">
             <article className=" w-full h-full overflow-auto flex flex-col pl-4 gap-1">
-                <section className="w-full h-24  flex justify-between relative bg-[#333333]">
+                <section className={(comprobante==='FACTURA DE VENTA')?'w-full h-24  flex justify-between relative bg-[#007acc]':'w-full h-24  flex justify-between relative bg-[#4caf50]'}>
                     <picture className=' w-auto h-24 flex select-none p-4'>
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Coca-Cola_logo.svg/1024px-Coca-Cola_logo.svg.png" alt="" />
                     </picture>
@@ -26,7 +37,7 @@ function FacturaBoleta(){
                                 {comprobante}
                             </span>
                             <button 
-                            className={(comprobante==='FACTURA DE VENTA')?'grid items-center justify-center w-4 h-full bg-[#007acc] hover:bg-[#D2D2D2] focus:bg-[#D2D2D2] text-white hover:text-[#333333]  select-none':'grid items-center justify-center w-4 h-full bg-[#4caf50] hover:bg-[#D2D2D2] focus:bg-[#D2D2D2] text-white hover:text-[#333333]       select-none'}
+                            className='grid items-center justify-center w-4 h-full bg-[#333333] focus:text-white text-[#D2D2D2] hover:text-white select-none'
                             onClick={()=>{setOn(!on)}}
                             >
                                 <MenorIcon className='w-4'  />
@@ -56,9 +67,9 @@ function FacturaBoleta(){
                     </ul>
                 </section>
                 <article className='Pro-Light select-none text-sm  flex flex-col gap-1 pr-4'>
-                    <div className=' h-6 flex items-center Pro-Bold'>COCA-COLA SERVICIOS DE PERU S.A </div> 
-                    <div className=' h-6 flex items-center'>Av. República de Panamá Nro. 4050</div> 
-                    <div className=' h-6 flex items-center'>Surquillo, Lima, Lima, Perú</div>    
+                    <div className=' h-6 flex items-center Pro-Bold pl-4'>COCA-COLA SERVICIOS DE PERU S.A </div> 
+                    <div className=' h-6 flex items-center pl-4'>Av. República de Panamá Nro. 4050</div> 
+                    <div className=' h-6 flex items-center pl-4'>Surquillo, Lima, Lima, Perú</div>    
                 </article>
                 <article className='w-full h-auto flex flex-col pr-4 gap-1'>
                     <div className=' flex w-full h-6 gap-1'>
@@ -82,7 +93,7 @@ function FacturaBoleta(){
                             </label>
                         </div>
                         <div className='w-full flex justify-between bg-white px-4 text-sm text-[#777777]'>
-                            <div className='h-full flex  items-center text-ellipsis overflow-hidden'>
+                            <div className='h-full flex  items-center text-clip overflow-hidden'>
                                 Fecha de Vencimiento : 
                             </div>
                             <label 
@@ -113,6 +124,16 @@ function FacturaBoleta(){
                         Tipo de moneda : SOL
                     </div>
                 </article>
+                <div>
+                    {
+                        state && (
+                           state.map(state =>(<div key={state.id}>{state.title}</div>))
+                        )
+                    }
+                    {
+                        fecha
+                    }
+                </div>
             </article>
         </main>
     )
