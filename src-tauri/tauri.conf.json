@@ -32,9 +32,9 @@
     "windows": [
       {
         "title": "contab2",
-        "width": 800,
+        "width": 920,
         "height": 600,
-        "minWidth": 690,
+        "minWidth": 920,
         "minHeight": 500,
         "decorations": false,
         "visible": false

@@ -4,8 +4,9 @@
     height: 20px;
 
 }
-option {
-    background-color: #f0f0f0; /* Cambia el color de fondo de las opciones */
-    color: #333; /* Cambia el color del texto de las opciones */
-    padding: 10px; /* Ajusta el espaciado interno de las opciones */
-  }
+
+.comprobante{
+    display: grid;
+    grid-template-rows: 100px 84px 140px 52px calc(100vh - 100px - 84px - 140px - 200px) ;
+    grid-template-columns: 100%;
+}

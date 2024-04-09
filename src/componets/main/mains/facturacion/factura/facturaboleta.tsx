@@ -25,9 +25,8 @@ function FacturaBoleta({state}:FacturaBoletaProps){
     }, [])
 
     return(
-        <main className=" overflow-hidden bg-[#F3F3F3] Pro-Light text-[#333333]">
-            <article className=" w-full h-full overflow-auto flex flex-col pl-4 gap-1">
-                <section className={(comprobante==='FACTURA DE VENTA')?'w-full h-24  flex justify-between relative bg-[#007acc]':'w-full h-24  flex justify-between relative bg-[#4caf50]'}>
+            <article className=" pl-4 comprobante overflow-hidden  bg-[#F3F3F3] Pro-Light text-[#333333]">
+                <section className='w-full h-24  flex justify-between relative bg-[#333333]'>
                     <picture className=' w-auto h-24 flex select-none p-4'>
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Coca-Cola_logo.svg/1024px-Coca-Cola_logo.svg.png" alt="" />
                     </picture>
@@ -37,7 +36,7 @@ function FacturaBoleta({state}:FacturaBoletaProps){
                                 {comprobante}
                             </span>
                             <button 
-                            className='grid items-center justify-center w-4 h-full bg-[#333333] focus:text-white text-[#D2D2D2] hover:text-white select-none'
+                            className={(comprobante==='FACTURA DE VENTA')?'grid items-center justify-center w-4 h-full bg-[#007acc] focus:text-white text-[#D2D2D2] hover:text-white select-none':'grid items-center justify-center w-4 h-full bg-[#4caf50] focus:text-white text-[#D2D2D2] hover:text-white select-none'}
                             onClick={()=>{setOn(!on)}}
                             >
                                 <MenorIcon className='w-4'  />
@@ -73,8 +72,8 @@ function FacturaBoleta({state}:FacturaBoletaProps){
                 </article>
                 <article className='w-full h-auto flex flex-col pr-4 gap-1'>
                     <div className=' flex w-full h-6 gap-1'>
-                        <div className='w-full flex justify-between bg-white px-4 text-sm text-[#777777]'>
-                            <div className='h-full flex  items-center text-clip overflow-hidden'>
+                        <div className='w-1/2  flex justify-between bg-white px-4 text-sm text-[#777777]'>
+                            <div className='h-full flex  overflow-hidden text-ellipsis items-center truncate'>
                                 Fecha de emision : 
                             </div>
                             <label 
@@ -92,9 +91,9 @@ function FacturaBoleta({state}:FacturaBoletaProps){
                                 />
                             </label>
                         </div>
-                        <div className='w-full flex justify-between bg-white px-4 text-sm text-[#777777]'>
-                            <div className='h-full flex  items-center text-clip overflow-hidden'>
-                                Fecha de Vencimiento : 
+                        <div className='w-1/2  flex justify-between bg-white px-4 text-sm text-[#777777] overflow-hidden'>
+                            <div className='h-full flex  overflow-hidden text-ellipsis items-center truncate'>
+                                Fecha de vencimiento : 
                             </div>
                             <label 
                             htmlFor="fecha"
@@ -124,10 +123,41 @@ function FacturaBoleta({state}:FacturaBoletaProps){
                         Tipo de moneda : SOL
                     </div>
                 </article>
-                <div>
+                <article className={'Pro-Light select-none text-sm  flex gap-1 pr-4 mt-6 '}>
+                    <div className={' h-6 flex items-center text-white justify-center w-1/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>ID</div>
+                    <div className={' h-6 flex items-center text-white justify-center w-6/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>NOMBRE</div> 
+                    <div className={' h-6 flex items-center text-white justify-center  w-1/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>CANTIDAD</div>
+                    <div className={' h-6 flex items-center  text-white justify-center  w-2/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>PRECIO-U</div>
+                    <div className={' h-6 flex items-center text-white justify-center  w-2/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>PRECIO-T</div>
+
+                </article>
+                <div className=' pr-4 w-full flex flex-col gap-1  overflow-y-auto  '>
                     {
-                        state && (
-                           state.map(state =>(<div key={state.id}>{state.title}</div>))
+                        state && (  
+                           state.map(state =>(
+                           <div 
+                            key={state.id}
+                            className=' flex gap-1 Pro-Light text-sm '
+                           >
+                            <div className='h-6 flex items-cente justify-center w-1/12 overflow-hidden truncate  bg-white px-4'>
+                                {state.id}
+                            </div>
+                            <div className='h-6 flex items-cente justify-initial w-6/12 overflow-hidden truncate  bg-white px-4'>
+                                {state.title}
+                            </div> 
+                            <div className='h-6 flex items-cente justify-center w-1/12 overflow-hidden truncate  bg-white px-4'>
+                                {state.cantidad}
+                            </div> 
+                            <div className='h-6 flex items-cente justify-center w-2/12 overflow-hidden truncate  bg-white px-4'>
+                                {state.price.toFixed(2)}
+                            </div> 
+                            <div className='h-6 flex items-cente justify-center w-2/12 overflow-hidden truncate  bg-white px-4'>
+                                {
+                                    (state.price *state.cantidad).toFixed(2)
+                                }
+                            </div>   
+                           </div>   
+                        ))
                         )
                     }
                     {
@@ -135,7 +165,6 @@ function FacturaBoleta({state}:FacturaBoletaProps){
                     }
                 </div>
             </article>
-        </main>
     )
 }
 export default FacturaBoleta

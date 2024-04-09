@@ -3,7 +3,7 @@
     "id": 1,
     "title": "iPhone 9",
     "description": "An apple mobile which is nothing like apple",
-    "price": 549,
+    "price": 549.99,
     "discountPercentage": 12.96,
     "rating": 4.69,
     "stock": 94,
@@ -29,7 +29,7 @@
     "brand": "Apple",
     "category": "smartphones",
     "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
-    "images": [
+    "images": [ 
       "https://cdn.dummyjson.com/product-images/2/1.jpg",
       "https://cdn.dummyjson.com/product-images/2/2.jpg",
       "https://cdn.dummyjson.com/product-images/2/3.jpg",
