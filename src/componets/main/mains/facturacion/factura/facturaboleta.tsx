@@ -25,14 +25,14 @@ function FacturaBoleta({state}:FacturaBoletaProps){
     }, [])
 
     return(
-            <article className=" pl-4 comprobante overflow-hidden  bg-[#F3F3F3] Pro-Light text-[#333333]">
-                <section className='w-full h-24  flex justify-between relative bg-[#333333]'>
+            <article className=" pl-4 comprobante overflow-hidden  bg-[#F3F3F3] Pro-Light text-[#333333] flex flex-col Factura gap-1">
+                <section className='w-full h-24  flex justify-between relative bg-white'>
                     <picture className=' w-auto h-24 flex select-none p-4'>
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Coca-Cola_logo.svg/1024px-Coca-Cola_logo.svg.png" alt="" />
                     </picture>
                     <section className='min-w-36 w-full max-w-[250px] flex flex-col rounded-md'>
                         <div  className="  justify-center flex items-center rounded-md h-full ">
-                            <span className={(comprobante==='FACTURA DE VENTA')?' text-white Pro-Bold text-xl w-full h-full flex items-center justify-center rounded-tl-md select-none':' text-white Pro-Bold text-xl w-full h-full flex items-center justify-center rounded-tl-md select-none'}>
+                            <span className={(comprobante==='FACTURA DE VENTA')?' text-[#007acc] Pro-Bold text-xl w-full h-full flex items-center justify-center rounded-tl-md select-none':' text-[#4caf50]  Pro-Bold text-xl w-full h-full flex items-center justify-center rounded-tl-md select-none'}>
                                 {comprobante}
                             </span>
                             <button 
@@ -123,7 +123,7 @@ function FacturaBoleta({state}:FacturaBoletaProps){
                         Tipo de moneda : SOL
                     </div>
                 </article>
-                <article className={'Pro-Light select-none text-sm  flex gap-1 pr-4 '}>
+                <article className={'Pro-Light  select-none text-sm  flex gap-1 pr-4 '}>
                     <div className={' h-6 flex items-center text-white justify-center w-1/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>ID</div>
                     <div className={' h-6 flex items-center text-white justify-center w-6/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>NOMBRE</div> 
                     <div className={' h-6 flex items-center text-white justify-center  w-1/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>CANTIDAD</div>
@@ -131,7 +131,7 @@ function FacturaBoleta({state}:FacturaBoletaProps){
                     <div className={' h-6 flex items-center text-white justify-center  w-2/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>PRECIO-T</div>
 
                 </article>
-                <div className=' pr-4 w-full flex flex-col gap-1  overflow-y-auto  '>
+                <div className=' pr-4 w-full flex flex-col gap-1  overflow-y-auto  max-h-56 arti'>
                     {
                         state && (  
                            state.map(state =>(
@@ -160,9 +160,18 @@ function FacturaBoleta({state}:FacturaBoletaProps){
                         ))
                         )
                     }
+                </div>
+                <div className=' pr-4 h-6 flex gap-1 Pro-Light select-none text-sm'>
+                    <div className={' h-6 flex items-center text-white justify-center  w-10/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>
+                            TOTAL 
+                    </div>
+                    <div className={' h-6 flex items-center text-white justify-center  w-2/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>
                     {
-                        fecha
+                        state[0]?.cantidad !== undefined 
+                        ? state.reduce((total, producto) => total + producto.price, 0)
+                        : 0
                     }
+                    </div>
                 </div>
             </article>
     )
