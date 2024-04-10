@@ -7,6 +7,23 @@
 
 .comprobante{
     display: grid;
-    grid-template-rows: 100px 84px 140px 52px calc(100vh - 100px - 84px - 140px - 200px) ;
+    grid-template-rows: 100px 84px 140px 28px calc(100vh - 100px - 84px - 140px - 200px) ;
     grid-template-columns: 100%;
 }
+::-webkit-scrollbar {
+    width:6px;
+    z-index: 10;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 5px; 
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555; 
+  }

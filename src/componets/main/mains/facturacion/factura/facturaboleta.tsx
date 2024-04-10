@@ -123,7 +123,7 @@ function FacturaBoleta({state}:FacturaBoletaProps){
                         Tipo de moneda : SOL
                     </div>
                 </article>
-                <article className={'Pro-Light select-none text-sm  flex gap-1 pr-4 mt-6 '}>
+                <article className={'Pro-Light select-none text-sm  flex gap-1 pr-4 '}>
                     <div className={' h-6 flex items-center text-white justify-center w-1/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>ID</div>
                     <div className={' h-6 flex items-center text-white justify-center w-6/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>NOMBRE</div> 
                     <div className={' h-6 flex items-center text-white justify-center  w-1/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>CANTIDAD</div>
