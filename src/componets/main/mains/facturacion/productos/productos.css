@@ -10,7 +10,7 @@
 }
 .productos{
     display: grid;
-    grid-template-rows: 48px 48px calc(100vh - 48px - 48px - 50px);
+    grid-template-rows: 48px 48px calc(100vh - 48px - 48px - 52px);
     height: 100%;
 }
 .card{

@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+// #region imports and props
+import { useEffect, useRef, useState } from 'react'
 import './styles.css'
 import MenorIcon from '../productos/menor'
 import generarFecha from './fecha'
@@ -13,19 +14,38 @@ interface Producto {
     state: Producto[];
   }
 
+
 function FacturaBoleta({state}:FacturaBoletaProps){
+    // #region states 
     const [comprobante, setComprobante] =useState("FACTURA DE VENTA")
     const [on, setOn]= useState(false)
     const [date, setDate] = useState({minDate:'', maxDate:''})
     const [fecha, setFecha] = useState('')
+    const divRef = useRef<HTMLDivElement>(null);
+    const divCont = useRef<HTMLDivElement>(null);
+    const [alturas, setAlturas] = useState({ref:0,cont:0});
+  
+    useEffect(() => {
+        if (divCont.current && divRef.current) {
+          const alturaCont = divCont.current.clientHeight;
+          const alturaRef = divRef.current.clientHeight;
+
+          if (alturaCont !== alturas.cont || alturaRef !== alturas.ref) {
+            setAlturas({
+                ref: alturaRef,
+                cont: alturaCont
+            });
+          }
+        }
+    }, [state.length]);
 
     useEffect(() => {
         const {minDate ,maxDate}= generarFecha()
         setDate({minDate:minDate, maxDate:maxDate})
     }, [])
-
+    console.log(alturas.cont == alturas.ref, alturas.cont , alturas.ref)
     return(
-            <article className=" pl-4 comprobante overflow-hidden  bg-[#F3F3F3] Pro-Light text-[#333333] flex flex-col Factura gap-1">
+            <article className=" pl-4 comprobante overflow-y-auto  bg-[#F3F3F3] Pro-Light text-[#333333] flex flex-col Factura pb-4 arti ">
                 <section className='w-full h-24  flex justify-between relative bg-white'>
                     <picture className=' w-auto h-24 flex select-none p-4'>
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Coca-Cola_logo.svg/1024px-Coca-Cola_logo.svg.png" alt="" />
@@ -65,7 +85,7 @@ function FacturaBoleta({state}:FacturaBoletaProps){
                         </button>
                     </ul>
                 </section>
-                <article className='Pro-Light select-none text-sm  flex flex-col gap-1 pr-4'>
+                <article className='Pro-Light select-none text-sm  flex flex-col gap-1 pr-4 pt-4'>
                     <div className=' h-6 flex items-center Pro-Bold pl-4'>COCA-COLA SERVICIOS DE PERU S.A </div> 
                     <div className=' h-6 flex items-center pl-4'>Av. República de Panamá Nro. 4050</div> 
                     <div className=' h-6 flex items-center pl-4'>Surquillo, Lima, Lima, Perú</div>    
@@ -123,56 +143,98 @@ function FacturaBoleta({state}:FacturaBoletaProps){
                         Tipo de moneda : SOL
                     </div>
                 </article>
-                <article className={'Pro-Light  select-none text-sm  flex gap-1 pr-4 '}>
-                    <div className={' h-6 flex items-center text-white justify-center w-1/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>ID</div>
-                    <div className={' h-6 flex items-center text-white justify-center w-6/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>NOMBRE</div> 
-                    <div className={' h-6 flex items-center text-white justify-center  w-1/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>CANTIDAD</div>
-                    <div className={' h-6 flex items-center  text-white justify-center  w-2/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>PRECIO-U</div>
-                    <div className={' h-6 flex items-center text-white justify-center  w-2/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>PRECIO-T</div>
+                <article className={'Pro-Light  select-none text-sm  flex gap-1 pr-4 mt-4 mb-1'}>
+                    <div className={' h-6 flex items-center text-white justify-center w-1/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>id</div>
+                    <div className={' h-6 flex items-center text-white justify-center w-6/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>nombre</div> 
+                    <div className={' h-6 flex items-center text-white justify-center  w-1/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>cantidad</div>
+                    <div className={' h-6 flex items-center  text-white justify-center  w-2/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>p. unitario</div>
+                    <div className={' h-6 flex items-center text-white justify-center  w-2/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>p. total</div>
 
                 </article>
-                <div className=' pr-4 w-full flex flex-col gap-1  overflow-y-auto  max-h-56 arti'>
-                    {
-                        state && (  
-                           state.map(state =>(
-                           <div 
-                            key={state.id}
-                            className=' flex gap-1 Pro-Light text-sm '
-                           >
-                            <div className='h-6 flex items-cente justify-center w-1/12 overflow-hidden truncate  bg-white px-4'>
-                                {state.id}
-                            </div>
-                            <div className='h-6 flex items-cente justify-initial w-6/12 overflow-hidden truncate  bg-white px-4'>
-                                {state.title}
-                            </div> 
-                            <div className='h-6 flex items-cente justify-center w-1/12 overflow-hidden truncate  bg-white px-4'>
-                                {state.cantidad}
-                            </div> 
-                            <div className='h-6 flex items-cente justify-center w-2/12 overflow-hidden truncate  bg-white px-4'>
-                                {state.price.toFixed(2)}
-                            </div> 
-                            <div className='h-6 flex items-cente justify-center w-2/12 overflow-hidden truncate  bg-white px-4'>
-                                {
-                                    (state.price *state.cantidad).toFixed(2)
-                                }
+                <div 
+                className=' w-full overflow-y-auto max-h-56 '
+                ref={divCont}
+                >   
+                    <div 
+                        className={'w-full gap-1 flex flex-col ' + `${(alturas.cont === alturas.ref)?' pr-4':' '}` }
+                        ref={divRef}
+                    >
+                        {
+                            state && (  
+                            state.map(state =>(
+                            <div 
+                                key={state.id}
+                                className=' flex gap-1 Pro-Light text-sm '
+                            >
+                                <div className='h-6 flex items-center justify-center w-1/12 overflow-hidden truncate  bg-white px-4'>
+                                    {state.id}
+                                </div>
+                                <div className='h-6 flex items-center justify-initial w-6/12 overflow-hidden truncate  bg-white px-4'>
+                                    {state.title}
+                                </div> 
+                                <div className='h-6 flex items-center justify-center w-1/12 overflow-hidden truncate  bg-white px-4'>
+                                    {state.cantidad}
+                                </div> 
+                                <div className='h-6 flex items-center justify-center w-2/12 overflow-hidden truncate  bg-white px-4'>
+                                    {state.price.toFixed(2)}
+                                </div> 
+                                <div className='h-6 flex items-center justify-center w-2/12 overflow-hidden truncate  bg-white px-4'>
+                                    {
+                                        (state.price *state.cantidad).toFixed(2)
+                                    }
+                                </div>   
                             </div>   
-                           </div>   
-                        ))
-                        )
-                    }
+                            ))
+                            )
+                        }
+                    </div>    
                 </div>
-                <div className=' pr-4 h-6 flex gap-1 Pro-Light select-none text-sm'>
-                    <div className={' h-6 flex items-center text-white justify-center  w-10/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>
-                            TOTAL 
+                <article className=' w-full flex flex-col gap-1 mt-1 mb-1'>
+
+                    <div className='pr-4 h-6 flex gap-1 Pro-Light select-none text-sm w-full'>
+                        <div className=' bg-white h-6 flex items-center justify-center  w-10/12 overflow-hidden truncate '>
+                            B.I 
+                        </div>
+                        <div className='  bg-white h-6 flex items-center justify-center overflow-hidden truncate  w-[calc(16.666667%-4px)]'>
+                        {
+                            state[0]?.cantidad !== undefined 
+                            ? `s/${(state.reduce((total, producto) => total + (producto.price * producto.cantidad), 0) / 1.18).toFixed(2) }`
+                            : 0
+                        }
+                        </div>
                     </div>
-                    <div className={' h-6 flex items-center text-white justify-center  w-2/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>
-                    {
-                        state[0]?.cantidad !== undefined 
-                        ? state.reduce((total, producto) => total + producto.price, 0)
-                        : 0
-                    }
+                    <div className='pr-4 h-6 flex gap-1 Pro-Light select-none text-sm w-full'>
+                        <div className=' bg-white h-6 flex items-center justify-center  w-10/12 overflow-hidden truncate '>
+                            I.G.V 
+                        </div>
+                        <div className='  bg-white h-6 flex items-center justify-center overflow-hidden truncate  w-[calc(16.666667%-4px)] '>
+                        {
+                            state[0]?.cantidad !== undefined 
+                            ? `s/${((state.reduce((total, producto) => total + (producto.price * producto.cantidad), 0) / 1.18) * 0.18).toFixed(2) }`
+                            : 0
+                        }
+                        </div>
                     </div>
-                </div>
+                    <div className=' pr-4 h-6 flex gap-1 Pro-Light select-none text-sm w-full'>
+                        <div className={' h-6 flex items-center text-white justify-center  w-10/12 overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>
+                                TOTAL 
+                        </div>
+                        <div className={' h-6 flex items-center text-white justify-center w-[calc(16.666667%-4px)] overflow-hidden truncate '+`${(comprobante==='FACTURA DE VENTA')?"bg-[#007acc]":"bg-[#4caf50] "}`}>
+                        {
+                            state[0]?.cantidad !== undefined 
+                            ? `s/${state.reduce((total, producto) => total + (producto.price * producto.cantidad), 0).toFixed(2)}`
+                            : 0
+                        }
+                        </div>
+                        
+                    </div>
+                </article>    
+                <article className=' Pro-Light h-12  select-none text-sm  flex gap-1  pr-4 w-full'>
+                    <div className='w-full h-full pr-4 bg-[#333333] text-white flex justify-center items-center hover:bg-stone-500 cursor-pointer  '>
+                        EMITIR
+                    </div>
+                </article>
+
             </article>
     )
 }

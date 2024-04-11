@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 function Facturacion(){
     const [items, setItems] = useState<{ id: number; title: string; cantidad: number; price: number }[]>([]);
-    
+    const [comprobante , setComprobante]= useState<{}>()
     function sumarItems(item:{id:number, title:string, price:number}){
        if (items.length === 0){
             setItems([{ 
