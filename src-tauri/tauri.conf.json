@@ -26,6 +26,7 @@
         "unmaximize": true,
         "unminimize": true,
         "startDragging": true
+       
         
       }
     },
@@ -36,8 +37,8 @@
         "height": 600,
         "minWidth": 920,
         "minHeight": 500,
-        "decorations": false,
-        "visible": false
+        "visible": true
+        
       },
       {
         "width": 400,

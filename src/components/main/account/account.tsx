@@ -1,4 +1,4 @@
-import Lupa from "../../../assets/logoBusqueda"
+import Lupa from "../../../icons/logoBusqueda"
 import IconSettins from "./iconSeti"
 import IconUser from "./iconUser"
 

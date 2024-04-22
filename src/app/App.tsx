@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./App.css";
-import TitleBar from "./componets/titlebar/titlebar";
-import Main from "./componets/main/main/main";
+import "../styles/App.css";
+import TitleBar from "../components/titlebar/titlebar";
+import Main from "../components/main/main/main";
 
 function App() {
   const [compConc, compConcSect] = useState(false)
@@ -16,6 +16,10 @@ function App() {
     </div>
   );
 }
+
+<style>
+
+</style>
 
 export default App;
   

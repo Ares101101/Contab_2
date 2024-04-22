@@ -1,4 +1,4 @@
-import Lupa from '../../../../../assets/logoBusqueda';
+import Lupa from '../../../../../icons/logoBusqueda';
 import CardProducto from './card';
 import productos from '../../../../../assets/products.json'
 import MenorIcon from './menor';

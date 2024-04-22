@@ -10,6 +10,7 @@
     "tauri": "tauri"
   },
   "dependencies": {
+    "@fontsource-variable/open-sans": "^5.0.29",
     "@tauri-apps/api": "^1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
