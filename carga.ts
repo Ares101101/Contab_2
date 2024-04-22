@@ -1,4 +1,4 @@
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from '@tauri-apps/api/core'
 
 document.addEventListener('DOMContentLoaded', () => {
     // This will wait for the window to load, but you could

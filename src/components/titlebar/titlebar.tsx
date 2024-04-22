@@ -13,9 +13,12 @@ function TitleBar({funct}:{funct:() => void}) {
       if (!sect)return setSect(true)
       else return setSect(false)
     }
+
     const minimize = () => appWindow.minimize()
     const maximize = () => appWindow.toggleMaximize()
     const close = () => appWindow.close()
+
+    
   return (
     <header data-tauri-drag-region className="h-full relative headerTitle flex items-center justify-center Pro-Light bg-[#DDDDDD] z-10 ">
         <nav className="flex h-9 justify-start items-center  text-[#333333] p-0 m-0 absolute left-0">
